@@ -10,16 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -27,7 +17,7 @@ steps:
       i=0
             while [ $i -lt 30 ]
             do
-                curl --location --request POST 'https://dev.armorcode.ai/client/utils/jenkins/build/validation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 86e0f7b5-9830-4cab-ac5b-1d0d69624fb2'  -d '{ "env": "Production", "product": "92", "subProduct": "113", "buildNumber": "'"$BUILD_NUMBER"'", "jobName":"'"$JOB_NAME"'"}' > result.json
+                curl --location --request POST 'https://dev.armorcode.ai/client/utils/jenkins/build/validation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 86e0f7b5-9830-4cab-ac5b-1d0d69624fb2'  -d '{ "env": "Production", "product": "92", "subProduct": "113", "buildNumber": "$[Release.DeploymentID]", "jobName":"'"$JOB_NAME"'"}' > result.json
                 status=$(jq -r '.status' result.json)
                 if [ $status = "HOLD" ]
                 then
