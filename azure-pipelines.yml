@@ -14,6 +14,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      echo '$(Build.BuildNumber)'
+      echo '$(Build.BuildId)'
       i=0
             while [ $i -lt 30 ]
             do
