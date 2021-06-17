@@ -15,21 +15,21 @@ steps:
    targetType: 'inline'
    script: |
     i=0
-          while [ $i -lt 30 ]
-          do
-              curl --location --request POST 'https://qa.armorcode.ai/client/utils/jenkins/build/validation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 08765870-ff5f-4286-8089-fc0a8a11127e'  -d '{ "env": "Production", "product": "942", "subProduct": "1578", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
-              status=$(jq -r '.status' result.json)
-              if [ $status = "HOLD" ]
-              then
-                  sleep 10
-                  i=$(( $i + 1 ))
-                  if [ $i = 30 ]
-                  then
-                      exit 1
-                  else
-                      continue
-                  fi
-              else
-                  break
-              fi
-          done
+        while [ $i -lt 30 ]
+        do
+            curl --location --request POST 'https://qa.armorcode.ai/client/utils/jenkins/build/validation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 08765870-ff5f-4286-8089-fc0a8a11127e'  -d '{ "env": "Production", "product": "1012", "subProduct": "1617", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+            status=$(jq -r '.status' result.json)
+            if [ $status = "HOLD" ]
+            then
+                sleep 10
+                i=$(( $i + 1 ))
+                if [ $i = 30 ]
+                then
+                    exit 1
+                else
+                    continue
+                fi
+            else
+                break
+            fi
+        done
