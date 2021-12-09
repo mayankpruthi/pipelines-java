@@ -17,7 +17,7 @@ steps:
     i=0
         while [ $i -lt 30 ]
         do
-            curl --location --request POST 'https://qa.armorcode.ai/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 58c508fd-a8a2-4f46-970f-81a702ec907a'  -d '{ "env": "Staging", "product": "2188", "subProduct": "4277", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+            curl --location --request POST 'https://preprod.armorcode.ai/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 05ba97fb-6f2d-4da7-a2b7-4898d1d6647b'  -d '{ "env": "Production", "product": "967", "subProduct": "2139", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
             status=$(jq -r '.status' result.json)
             if [ $status = "HOLD" ]
             then
